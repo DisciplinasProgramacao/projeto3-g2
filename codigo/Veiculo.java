@@ -1,90 +1,116 @@
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * A classe Veiculo representa um veículo que pode estacionar em vagas.
  */
 public class Veiculo {
-
     private String placa;
     private UsoDeVaga[] usos;
     private int ultimaPosicao;
 
     /**
-     * Construtor da classe Veiculo.
+     * Cria uma instância de Veiculo com a placa especificada.
      *
      * @param placa A placa do veículo.
      */
     public Veiculo(String placa) {
         this.placa = placa;
-        this.usos = new UsoDeVaga[1000]; // Inicializa o array de usos com tamanho máximo de 1000.
-        this.ultimaPosicao = 0; // Inicializa a última posição de uso como 0.
+          this.usos = new UsoDeVaga[1000];
+        this.ultimaPosicao = 0;
     }
 
     /**
-     * Estaciona o veículo em uma vaga se a vaga estiver disponível.
+     * Estaciona o veículo em uma vaga, se a vaga estiver disponível.
      *
-     * @param vaga A vaga em que o veículo deseja estacionar.
+     * @param vaga A vaga onde o veículo deve estacionar.
      */
     public void estacionar(Vaga vaga) {
-       if(vaga.disponivel() == true ){
-			this.usos = new UsoDeVaga[1000];
-			this.usos = new UsoDeVaga[ultimaPosicao];
-			ultimaPosicao++;
-		} 
-		 else {
-            System.out.println("A vaga não está disponível.");
+        if (vaga.disponivel()) {
+            usos[ultimaPosicao] = new UsoDeVaga(vaga, new Date());
+            ultimaPosicao++;
         }
     }
 
     /**
-     * Registra a saída do veículo da vaga e calcula o valor a ser pago.
+     * Remove o veículo de uma vaga e calcula o valor a ser pago com base no tempo de estacionamento.
+     * O valor é calculado em frações de 15 minutos, com um limite de R$50.
      *
-     * @return O valor a ser pago pelo uso da vaga.
+     * @return sair
      */
     public double sair() {
-        double total = 0.0;
-        for (int i = 0; i < ultimaPosicao; i++) {
-            total += usos[i].calcularValor();
-            usos[i] = null; // Limpa a referência ao uso da vaga.
-        }
-        ultimaPosicao = 0; // Reseta a última posição de uso.
-        return total;
-    }
 
-    /**
-     * Calcula o total arrecadado pelo veículo desde o início.
-     *
-     * @return O total arrecadado.
-     */
-    public double totalArrecadado() {
-        double total = 0.0;
         for (int i = 0; i < ultimaPosicao; i++) {
-            total += usos[i].calcularValor();
-        }
-        return total;
-    }
-
-    /**
-     * Calcula o total arrecadado pelo veículo em um determinado mês.
-     *
-     * @param mes O mês desejado (1 a 12).
-     * @return O total arrecadado no mês especificado.
-     */
-    public double arrecadadoNoMes(int mes) {
-        double total = 0.0;
-        for (int i = 0; i < ultimaPosicao; i++) {
-            if (usos[i].getMes() == mes) {
-                total += usos[i].calcularValor();
+            UsoDeVaga uso = usos[i];
+            if (uso != null) {
+                return uso.sair();
             }
         }
-        return total;
     }
 
     /**
-     * Obtém o total de usos registrados pelo veículo.
+     * Calcula o tempo, em minutos, entre duas datas.
      *
-     * @return O total de usos.
+     * @param dataEntrada A data de entrada.
+     * @param dataSaida   A data de saída.
+     * @return O tempo, em minutos, entre as duas datas.
+     */
+
+    /**
+     * Calcula o valor total arrecadado com estacionamento deste veículo.
+     *
+     * @return O valor total arrecadado.
+     */
+    public double totalArrecadado() {
+        double valorTotal = 0;
+
+        for (int i = 0; i < ultimaPosicao; i++) {
+            UsoDeVaga uso = usos[i];
+            if (uso != null) {
+                valorTotal += uso.valorPago();
+            }
+        }
+
+        return valorTotal;
+    }
+
+    /**
+     * Calcula o valor arrecadado no mês especificado.
+     *
+     * @param mes O número do mês (1 a 12) para o qual se deseja calcular o valor arrecadado.
+     * @return O valor arrecadado no mês especificado.
+     */
+    public double arrecadadoNoMes(int mes) {
+        double valorTotal = 0;
+        Calendar calendar = Calendar.getInstance();
+
+        for (int i = 0; i < ultimaPosicao; i++) {
+            UsoDeVaga uso = usos[i];
+            if (uso != null) {
+                calendar.setTime();
+                if (calendar.get(Calendar.MONTH) + 1 == mes) {
+                    valorTotal += uso.valorPago();
+                }
+            }
+        }
+
+        return valorTotal;
+    }
+
+    /**
+     * Calcula o total de usos registrados para este veículo.
+     *
+     * @return O total de usos registrados.
      */
     public int totalDeUsos() {
-        return ultimaPosicao;
+        int total = 0;
+
+        for (int i = 0; i < ultimaPosicao; i++) {
+            if (usos[i] != null) {
+                total++;
+            }
+        }
+
+        return total;
     }
-	
 }
