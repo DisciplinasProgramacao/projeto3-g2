@@ -27,7 +27,7 @@ public class Veiculo {
      */
     public void estacionar(Vaga vaga) {
         if (vaga.disponivel()) {
-            usos[ultimaPosicao] = new UsoDeVaga(vaga);
+            usos[ultimaPosicao] = new UsoDeVaga(null, vaga, null);
             ultimaPosicao++;
         }
     }
@@ -44,7 +44,7 @@ public class Veiculo {
         for (int i = 0; i < ultimaPosicao; i++) {
             UsoDeVaga uso = usos[i];
             if (uso != null) {
-                return uso.sair();
+                return uso.sair(null);
             }
         }
 
@@ -77,11 +77,10 @@ public class Veiculo {
      */
     public double arrecadadoNoMes(int mes) {
         double valorTotal = 0;
-        Calendar calendar = Calendar.getInstance();
 
         for (int i = 0; i < ultimaPosicao; i++) {
             UsoDeVaga uso = usos[i];
-            if (uso != null && uso.ehDoMes(mes)) {
+            if (uso != null && uso.ehDoMes(mes, i)) {
                   valorTotal += uso.valorPago();
 
                 }
