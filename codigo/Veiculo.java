@@ -16,7 +16,7 @@ public class Veiculo {
      */
     public Veiculo(String placa) {
         this.placa = placa;
-          this.usos = new UsoDeVaga[1000];
+        this.usos = new UsoDeVaga[1000];
         this.ultimaPosicao = 0;
     }
 
@@ -27,7 +27,7 @@ public class Veiculo {
      */
     public void estacionar(Vaga vaga) {
         if (vaga.disponivel()) {
-            usos[ultimaPosicao] = new UsoDeVaga(vaga, new Date());
+            usos[ultimaPosicao] = new UsoDeVaga(vaga);
             ultimaPosicao++;
         }
     }
@@ -36,9 +36,10 @@ public class Veiculo {
      * Remove o veículo de uma vaga e calcula o valor a ser pago com base no tempo de estacionamento.
      * O valor é calculado em frações de 15 minutos, com um limite de R$50.
      *
-     * @return sair
+     * @return O valor a ser pago pelo estacionamento.
      */
     public double sair() {
+        double valorTotal = 0;
 
         for (int i = 0; i < ultimaPosicao; i++) {
             UsoDeVaga uso = usos[i];
@@ -46,15 +47,9 @@ public class Veiculo {
                 return uso.sair();
             }
         }
-    }
 
-    /**
-     * Calcula o tempo, em minutos, entre duas datas.
-     *
-     * @param dataEntrada A data de entrada.
-     * @param dataSaida   A data de saída.
-     * @return O tempo, em minutos, entre as duas datas.
-     */
+        return valorTotal;
+    }
 
     /**
      * Calcula o valor total arrecadado com estacionamento deste veículo.
@@ -87,7 +82,7 @@ public class Veiculo {
         for (int i = 0; i < ultimaPosicao; i++) {
             UsoDeVaga uso = usos[i];
             if (uso != null) {
-                calendar.setTime();
+                calendar.setTime(uso.getDataEntrada());
                 if (calendar.get(Calendar.MONTH) + 1 == mes) {
                     valorTotal += uso.valorPago();
                 }
