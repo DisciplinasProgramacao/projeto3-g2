@@ -81,14 +81,11 @@ public class Veiculo {
 
         for (int i = 0; i < ultimaPosicao; i++) {
             UsoDeVaga uso = usos[i];
-            if (uso != null) {
-                calendar.setTime(uso.getDataEntrada());
-                if (calendar.get(Calendar.MONTH) + 1 == mes) {
-                    valorTotal += uso.valorPago();
+            if (uso != null && uso.ehDoMes(mes)) {
+                  valorTotal += uso.valorPago();
+
                 }
             }
-        }
-
         return valorTotal;
     }
 
