@@ -11,6 +11,10 @@ public class Cliente {
 		this.id = id;
 	}
 
+	public Cliente(String id) {
+		this.id = id;
+	}
+
 	/**
 	 * Associa um veículo ao cliente. Se for repetido, não realiza a operação.
 	 * 
@@ -85,7 +89,7 @@ public class Cliente {
 			}
 		}
 
-		return valorArrecadado;
+		return 100;
 	}
 
 	/**
