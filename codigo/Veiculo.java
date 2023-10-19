@@ -1,6 +1,3 @@
-import java.util.Calendar;
-import java.util.Date;
-
 /**
  * A classe Veiculo representa um veículo que pode estacionar em vagas.
  */
@@ -82,7 +79,6 @@ public class Veiculo {
             UsoDeVaga uso = usos[i];
             if (uso != null && uso.ehDoMes(mes, i)) {
                   valorTotal += uso.valorPago();
-
                 }
             }
         return valorTotal;
