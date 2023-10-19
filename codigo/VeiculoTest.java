@@ -1,8 +1,5 @@
 import static org.junit.Assert.*;
 
-import java.sql.Date;
-import java.util.Calendar;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -37,13 +34,17 @@ public class VeiculoTest {
     }
 
     @Test
-    public void testArrecadadoNoMes(UsoDeVaga uso[]) {
+    public void testArrecadadoNoMes() {
         veiculo.estacionar(vaga);
-        UsoDeVaga uso = UsoDeVaga.uso[0];
-        uso.setEntrLocalDateTime()(new Date(0)); // Defina a data de entrada como a data atual
         double valorPago = veiculo.sair();
-        int mes = Calendar.getInstance().get(Calendar.MONTH) + 1; // Mês atual
-        assertEquals(valorPago, veiculo.arrecadadoNoMes(mes), 0.001);
+        veiculo.estacionar(vaga);
+        double valorPagoSegunda = veiculo.sair();
+        veiculo.estacionar(vaga);
+        double valorPagoTerceiro = veiculo.sair();
+        double arrecadadoNoMes = valorPago+valorPagoSegunda+valorPagoTerceiro;
+        veiculo.arrecadadoNoMes(3);
+
+        assertEquals(arrecadadoNoMes, veiculo.arrecadadoNoMes(3), 0.001);
     }
 
     @Test

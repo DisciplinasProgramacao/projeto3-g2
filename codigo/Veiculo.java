@@ -1,6 +1,3 @@
-import java.util.Calendar;
-import java.util.Date;
-
 /**
  * A classe Veiculo representa um veículo que pode estacionar em vagas.
  */
@@ -77,13 +74,10 @@ public class Veiculo {
      */
     public double arrecadadoNoMes(int mes) {
         double valorTotal = 0;
-        Calendar calendar = Calendar.getInstance();
-
         for (int i = 0; i < ultimaPosicao; i++) {
             UsoDeVaga uso = usos[i];
             if (uso != null) {
-                calendar.setTime(uso.getDataEntrada());
-                if (calendar.get(Calendar.MONTH) + 1 == mes) {
+                if (uso.ehDoMes(mes)) {
                     valorTotal += uso.valorPago();
                 }
             }
