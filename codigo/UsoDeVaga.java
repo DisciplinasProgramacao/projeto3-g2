@@ -1,11 +1,13 @@
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class UsoDeVaga {
 
 	private static final double FRACAO_USO = 0.25;
 	private static final double VALOR_FRACAO = 4.0;
 	private static final double VALOR_MAXIMO = 50.0;
+    	private ArrayList<String> servicosContratados = new ArrayList<>();
 	private Vaga vaga;
 	private LocalDateTime entrada;
 	private LocalDateTime saida;
@@ -28,24 +30,24 @@ public class UsoDeVaga {
 		return valorPago;
 	}
 
-	public boolean ehDoMes(int mes, int ano) {
-		//conferir com o professor
-        if (entrada != null) {
-            int usoMes = entrada.getMonthValue();
-            int usoAno = entrada.getYear();
-
-            return (usoMes == mes && usoAno == ano);
-        }
-        return false;
+    public void adicionarServico(String servico) {
+        servicosContratados.add(servico);
     }
+    
 
-	public double valorPago() {
+    public double calcularValorPago() {
         if (entrada != null && saida != null) {
             Duration duracao = Duration.between(entrada, saida);
             long minutosUsados = duracao.toMinutes();
 
             // Cálculo do valor com base no tempo de uso da vaga e na fração de uso
             double valor = (minutosUsados / 15) * FRACAO_USO * VALOR_FRACAO;
+
+            // Adicionar custo de serviços adicionais
+            for (String servico : servicosContratados) {
+                valor += calcularCustoServico(servico);
+            }
+
             if (valor > VALOR_MAXIMO) {
                 valor = VALOR_MAXIMO;
             }
@@ -55,6 +57,29 @@ public class UsoDeVaga {
             this.valorPago = 0.0;
         }
         return this.valorPago;
+    }
+
+    public boolean ehDoMes(int mes, int ano) {
+        if (entrada != null) {
+            int usoMes = entrada.getMonthValue();
+            int usoAno = entrada.getYear();
+
+            return (usoMes == mes && usoAno == ano);
+        }
+        return false;
+    }
+
+    private double calcularCustoServico(String servico) {
+        switch (servico) {
+            case "manobrista":
+                return 5.0;
+            case "lavagem":
+                return 20.0;
+            case "polimento":
+                return 45.0;
+            default:
+                return 0.0; // Serviço desconhecido
+        }
     }
 
 
