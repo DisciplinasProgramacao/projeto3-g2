@@ -2,7 +2,7 @@
 
 public class Cliente {
 
-	private String nome;
+	public String nome;
 	private String id;
 	private Veiculo[] veiculos;
 
