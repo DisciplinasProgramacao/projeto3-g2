@@ -8,6 +8,12 @@ public class App {
         Scanner scanner = new Scanner(System.in);
 
         Estacionamento estacionamento = new Estacionamento("EstacionamentoG2", 20, 9);
+        Cliente cliente = new Cliente(null);
+        Veiculo veiculo = new Veiculo(null);
+        System.out.printf("Insira o Id do cliente:", cliente);
+        scanner.nextInt();
+        System.out.printf("Insira a placa do veiculo veiculo", veiculo);
+        scanner.nextLine();
         while (true) {
             System.out.println("Menu:");
             System.out.println("1. Adicionar Cliente");
@@ -31,31 +37,24 @@ public class App {
                     break;
                 case 2:
                     // Adicionar veículo a um cliente
-                    Cliente cliente = new Cliente(null);
                     cliente.addVeiculo(null);
                     break;
                 case 3:
-                    // Estacionar veículo
-                    Veiculo veiculo = new Veiculo(null);
                     veiculo.estacionar(null);
                     break;
                 case 4:
-                    Veiculo veiculo2 = new Veiculo(null);
-                    veiculo2.sair();
+                    veiculo.sair();
                     // Sair do estacionamento
                     break;
                 case 5:
-                    Cliente cliente2 = new Cliente(null);
-                    cliente2.arrecadadoTotal();
-
+                    cliente.arrecadadoTotal();
                     break;
                 case 6:
                     // Arrecadação no mês
                     
-                    Cliente cliente3 = new Cliente(null);
                     System.out.println("Digite o número do mês: ");
                     int mes = scanner.nextInt();                   
-                    cliente3.arrecadadoNoMes(mes);
+                    cliente.arrecadadoNoMes(mes);
                     break;
                 case 7:
                     estacionamento.valorMedioPorUso();
