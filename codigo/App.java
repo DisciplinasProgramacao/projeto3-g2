@@ -24,7 +24,10 @@ public class App {
             System.out.println("6. Arrecadação no Mês");
             System.out.println("7. Valor Médio por Uso");
             System.out.println("8. Top 5 Clientes");
-            System.out.println("9. Sair do Programa");
+           System.out.println("9. Emitir relatório por data de entrada");
+           System.out.println("10. Emitir relatorio por data de saida");
+           System.out.println("11. Emitir relatorio por preço");
+            System.out.println("12. Sair do Programa");
             System.out.print("Escolha uma opção: ");
 
             int opcao = scanner.nextInt();
@@ -65,7 +68,16 @@ public class App {
                     int mes2 = scanner.nextInt();   
                     estacionamento.top5Clientes(mes2);
                     break;
-                case 9:
+                case 9: 
+                     Veiculo.listarPorDataUltimaSaida(null);
+                     break;
+                case 10: 
+                    Veiculo.listarPorDataUltimaEntrada(null);
+                    break;
+                case 11: 
+                    Veiculo.gerarListaPorValorPago(null);
+                    break;
+                case 12:
                     // Sair do programa
                     System.out.println("Saindo do programa.");
                     scanner.close();

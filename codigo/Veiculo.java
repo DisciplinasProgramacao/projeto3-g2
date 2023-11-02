@@ -64,7 +64,7 @@ public class Veiculo {
         for (int i = 0; i < ultimaPosicao; i++) {
             UsoDeVaga uso = usos[i];
             if (uso != null) {
-                valorTotal += uso.calcularValorPago();
+                valorTotal += uso.valorPago();
             }
         }
 
@@ -83,7 +83,7 @@ public class Veiculo {
         for (int i = 0; i < ultimaPosicao; i++) {
             UsoDeVaga uso = usos[i];
             if (uso != null && uso.ehDoMes(mes, i)) {
-                  valorTotal += uso.calcularValorPago();
+                  valorTotal += uso.valorPago();
                 }
             }
         return valorTotal;
