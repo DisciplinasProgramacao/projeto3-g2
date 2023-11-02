@@ -1,3 +1,8 @@
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * A classe Veiculo representa um veículo que pode estacionar em vagas.
  */
@@ -99,5 +104,81 @@ public class Veiculo {
         }
 
         return total;
+    }
+    
+     /**
+     * Lista os veículos pela data da última saída em ordem decrescente.
+     *
+     * @return Uma lista de veículos ordenada pela data da última saída.
+     */
+    public static List<Veiculo> listarPorDataUltimaSaida(List<Veiculo> veiculos) {
+        List<Veiculo> veiculosOrdenados = new ArrayList<>(veiculos);
+        Collections.sort(veiculosOrdenados, (v1, v2) -> {
+            if (v1.ultimaSaida() == null && v2.ultimaSaida() == null) {
+                return 0;
+            } else if (v1.ultimaSaida() == null) {
+                return 1;
+            } else if (v2.ultimaSaida() == null) {
+                return -1;
+            } else {
+                return v2.ultimaSaida().compareTo(v1.ultimaSaida());
+            }
+        });
+        return veiculosOrdenados;
+    }
+
+     public static List<Veiculo> listarPorDataUltimaEntrada(List<Veiculo> veiculos) {
+        List<Veiculo> veiculosOrdenados = new ArrayList<>(veiculos);
+        Collections.sort(veiculosOrdenados, (v1, v2) -> {
+            if (v1.ultimaEntrada() == null && v2.ultimaEntrada() == null) {
+                return 0;
+            } else if (v1.ultimaEntrada() == null) {
+                return 1;
+            } else if (v2.ultimaEntrada() == null) {
+                return -1;
+            } else {
+                return v2.ultimaEntrada().compareTo(v1.ultimaEntrada());
+            }
+        });
+        return veiculosOrdenados;
+    }
+      public LocalDateTime ultimaEntrada() {
+        LocalDateTime ultimaEntrada = null;
+        for (UsoDeVaga uso : usos) {
+            if (uso != null && uso.getEntrLocalDateTime() != null) {
+                if (ultimaEntrada == null || uso.getEntrLocalDateTime().isAfter(ultimaEntrada)) {
+                    ultimaEntrada = uso.getEntrLocalDateTime();
+                }
+            }
+        }
+        return ultimaEntrada;
+    }
+
+    /**
+     * Retorna a data da última saída do veículo.
+     *
+     * @return A data da última saída do veículo.
+     */
+    public LocalDateTime ultimaSaida() {
+        LocalDateTime ultimaSaida = null;
+        for (UsoDeVaga uso : usos) {
+            if (uso != null && uso.getSLocalDateTime() != null) {
+                if (ultimaSaida == null || uso.getSLocalDateTime().isAfter(ultimaSaida)) {
+                    ultimaSaida = uso.getSLocalDateTime();
+                }
+            }
+        }
+        return ultimaSaida;
+    }
+    
+    /**
+     * Gera uma lista de veículos ordenada pelo valor total pago, em ordem decrescente.
+     *
+     * @return Uma lista de veículos ordenada pelo valor total pago.
+     */
+    public static List<Veiculo> gerarListaPorValorPago(List<Veiculo> veiculos) {
+        List<Veiculo> veiculosOrdenados = new ArrayList<>(veiculos);
+        Collections.sort(veiculosOrdenados, (v1, v2) -> Double.compare(v2.totalArrecadado(), v1.totalArrecadado()));
+        return veiculosOrdenados;
     }
 }
