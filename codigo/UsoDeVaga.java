@@ -34,7 +34,7 @@ public class UsoDeVaga {
         servicosContratados.add(servico);
     }
 
-    public double calcularValorPago() {
+    public double valorPago() {
         if (entrada != null && saida != null) {
             Duration duracao = Duration.between(entrada, saida);
             long minutosUsados = duracao.toMinutes();
@@ -42,13 +42,12 @@ public class UsoDeVaga {
             // Cálculo do valor com base no tempo de uso da vaga e na fração de uso
             double valor = (minutosUsados / 15) * FRACAO_USO * VALOR_FRACAO;
 
+            if (valor > VALOR_MAXIMO) {
+                valor = VALOR_MAXIMO;
+            }
             // Adicionar custo de serviços adicionais
             for (String servico : servicosContratados) {
                 valor += calcularCustoServico(servico);
-            }
-
-            if (valor > VALOR_MAXIMO) {
-                valor = VALOR_MAXIMO;
             }
 
             this.valorPago = valor;
