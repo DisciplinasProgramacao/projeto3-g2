@@ -109,7 +109,7 @@ public class Estacionamento {
 
 	public String top5Clientes(int mes) {
 		double arrayArrecadado[] = {0,0,0,0,0};
-		String topClientes[];
+		String topClientes[] = {};
 
 		for (int i = 0; i <= id.length; i++) {
 			double arrecadado = id[i].arrecadadoNoMes(mes);

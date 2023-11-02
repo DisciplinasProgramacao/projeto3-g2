@@ -1,12 +1,19 @@
 import java.util.Scanner;
 
 public class App {
+    /**
+     * @param args
+     */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // Crie um estacionamento
-        Estacionamento estacionamento = new Estacionamento("Meu Estacionamento", 5, 10);
-
+        Estacionamento estacionamento = new Estacionamento("EstacionamentoG2", 20, 9);
+        Cliente cliente = new Cliente(null); 
+        Veiculo veiculo = new Veiculo(null);
+        System.out.printf("Insira o Id do cliente:", cliente);
+        scanner.nextInt();
+        System.out.printf("Insira a placa do veiculo", veiculo );
+        scanner.nextLine();
         while (true) {
             System.out.println("Menu:");
             System.out.println("1. Adicionar Cliente");
@@ -26,82 +33,37 @@ public class App {
             switch (opcao) {
                 case 1:
                     // Adicionar um cliente
-                    System.out.print("Nome do cliente: ");
-                    String nomeCliente = scanner.nextLine();
-                    System.out.print("ID do cliente: ");
-                    String idCliente = scanner.nextLine();
-                    Cliente cliente = new Cliente(nomeCliente, idCliente);
-                    estacionamento.addCliente(cliente);
+                    estacionamento.addCliente(null);
                     break;
                 case 2:
                     // Adicionar veículo a um cliente
-                    System.out.print("ID do cliente: ");
-                    String idClienteAddVeiculo = scanner.nextLine();
-                    Cliente clienteAddVeiculo = estacionamento.getClienteById(idClienteAddVeiculo);
-
-                    if (clienteAddVeiculo != null) {
-                        System.out.print("Placa do veículo: ");
-                        String placaVeiculo = scanner.nextLine();
-                        Veiculo veiculo = new Veiculo(placaVeiculo);
-                        clienteAddVeiculo.addVeiculo(veiculo);
-                        System.out.println("Veículo adicionado ao cliente com sucesso.");
-                    } else {
-                        System.out.println("Cliente não encontrado.");
-                    }
+                    cliente.addVeiculo(null);
                     break;
                 case 3:
-                    // Estacionar veículo
-                    System.out.print("Placa do veículo: ");
-                    String placaEstacionar = scanner.nextLine();
-                    Veiculo veiculoEstacionar = estacionamento.estacionar(veiculoEstacionar);;
-
-                    if (veiculoEstacionar != null) {
-                        Vaga vagaDisponivel = estacionamento.estacionar(veiculoEstacionar);
-                        if (vagaDisponivel != null) {
-                            System.out.println("Veículo estacionado na vaga: " + vagaDisponivel.getId());
-                        } else {
-                            System.out.println("Não há vagas disponíveis.");
-                        }
-                    } else {
-                        System.out.println("Veículo não encontrado.");
-                    }
+                    veiculo.estacionar(null);
                     break;
                 case 4:
+                    veiculo.sair();
                     // Sair do estacionamento
-                    System.out.print("Placa do veículo: ");
-                    String placaSair = scanner.nextLine();
-                    Veiculo veiculoSair = estacionamento.getVeiculoByPlaca(placaSair);
-
-                    if (veiculoSair != null) {
-                        double valorPago = estacionamento.sair(veiculoSair);
-                        System.out.println("Valor a ser pago: R$" + valorPago);
-                    } else {
-                        System.out.println("Veículo não encontrado.");
-                    }
                     break;
                 case 5:
-                    // Total arrecadado
-                    double totalArrecadado = estacionamento.totalArrecadado();
-                    System.out.println("Total arrecadado: R$" + totalArrecadado);
+                    cliente.arrecadadoTotal();
                     break;
                 case 6:
                     // Arrecadação no mês
-                    System.out.print("Mês (1-12): ");
-                    int mes = scanner.nextInt();
-                    double arrecadacaoNoMes = estacionamento.arrecadacaoNoMes(mes);
-                    System.out.println("Arrecadação no mês " + mes + ": R$" + arrecadacaoNoMes);
+                    
+                    System.out.println("Digite o número do mês: ");
+                    int mes = scanner.nextInt();                   
+                    cliente.arrecadadoNoMes(mes);
                     break;
                 case 7:
-                    // Valor médio por uso
-                    double valorMedioPorUso = estacionamento.valorMedioPorUso();
-                    System.out.println("Valor médio por uso: R$" + valorMedioPorUso);
+                    estacionamento.valorMedioPorUso();
                     break;
                 case 8:
                     // Top 5 Clientes
-                    System.out.print("Mês (1-12): ");
-                    int mesTop5 = scanner.nextInt();
-                    String top5Clientes = estacionamento.top5Clientes(mesTop5);
-                    System.out.println("Top 5 Clientes no mês " + mesTop5 + ":\n" + top5Clientes);
+                     System.out.println("Digite o número do mês: ");
+                    int mes2 = scanner.nextInt();   
+                    estacionamento.top5Clientes(mes2);
                     break;
                 case 9:
                     // Sair do programa
