@@ -16,9 +16,9 @@ public class Estacionamento {
 		this.gerarVagas();
 	}
 
-	//- [ ] addVeiculo: deve localizar o cliente no array de clientes (senão achar colocar “return;” e associar o veiculo a ele 
 	public void addVeiculo(Veiculo veiculo, String idCli) {
 		Cliente novoCliente = new Cliente(idCli);
+
 		for(int i = 0; i <= id.length; i++) {
 			if (id[i].equals(novoCliente)) {
 				id[i].addVeiculo(veiculo);
@@ -109,14 +109,14 @@ public class Estacionamento {
 
 	public String top5Clientes(int mes) {
 		double arrayArrecadado[] = {0,0,0,0,0};
-		String topClientes[] = {};
+		String topClientes[] = new String[5];
 
 		for (int i = 0; i <= id.length; i++) {
 			double arrecadado = id[i].arrecadadoNoMes(mes);
 			for (int j = 0; j <= 5; j++) {
 				if (arrecadado > arrayArrecadado[j]) {
 					arrayArrecadado[j] = arrecadado;
-					topClientes[j] = id[i].nome;
+					topClientes[j] = id[i].toString();
 				}
 			}
 		}
