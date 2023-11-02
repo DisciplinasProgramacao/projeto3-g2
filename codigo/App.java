@@ -8,11 +8,11 @@ public class App {
         Scanner scanner = new Scanner(System.in);
 
         Estacionamento estacionamento = new Estacionamento("EstacionamentoG2", 20, 9);
-        Cliente cliente = new Cliente(null);
+        Cliente cliente = new Cliente(null); 
         Veiculo veiculo = new Veiculo(null);
         System.out.printf("Insira o Id do cliente:", cliente);
         scanner.nextInt();
-        System.out.printf("Insira a placa do veiculo veiculo", veiculo);
+        System.out.printf("Insira a placa do veiculo", veiculo );
         scanner.nextLine();
         while (true) {
             System.out.println("Menu:");
