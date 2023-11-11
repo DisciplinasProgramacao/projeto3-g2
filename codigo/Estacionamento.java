@@ -18,12 +18,11 @@ public class Estacionamento {
 
 	public void addVeiculo(Veiculo veiculo, String idCli) {
 		Cliente novoCliente = new Cliente(idCli);
-		novoCliente.addVeiculo(veiculo);
 
 		for(int i = 0; i <= id.length; i++) {
-			if (id[i] == null) {
-				id[i] = novoCliente;
-			} 
+			if (id[i].equals(novoCliente)) {
+				id[i].addVeiculo(veiculo);
+			}
 		}
 	}
 
@@ -63,7 +62,7 @@ public class Estacionamento {
 
         for (int i = 0; i < id.length; i++) {
             if (id[i] != null) {
-				if (id[i].possuiVeiculo(placa) == veiculo) {
+				if (id[i].possuiVeiculo(placa).equals(veiculo)) {
 					valorTotal = veiculo.sair();
 				}
             }
@@ -110,14 +109,14 @@ public class Estacionamento {
 
 	public String top5Clientes(int mes) {
 		double arrayArrecadado[] = {0,0,0,0,0};
-		String topClientes[] = {};
+		String topClientes[] = new String[5];
 
 		for (int i = 0; i <= id.length; i++) {
 			double arrecadado = id[i].arrecadadoNoMes(mes);
 			for (int j = 0; j <= 5; j++) {
 				if (arrecadado > arrayArrecadado[j]) {
 					arrayArrecadado[j] = arrecadado;
-					topClientes[j] = id[i].nome;
+					topClientes[j] = id[i].toString();
 				}
 			}
 		}
